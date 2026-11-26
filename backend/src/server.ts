@@ -8,8 +8,9 @@ async function bootstrap() {
   await seedDatabaseIfEmpty();
 
   const app = createApp();
-  const server = app.listen(env.port, () => {
-    console.log(`[Server] FactoryFlow API running on http://localhost:${env.port}`);
+
+  const server = app.listen(env.port, "0.0.0.0", () => {
+    console.log(`[Server] FactoryFlow API running on port ${env.port}`);
   });
 
   const shutdown = async () => {
