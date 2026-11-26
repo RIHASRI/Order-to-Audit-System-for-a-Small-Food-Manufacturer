@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import axios from 'axios';
 import { User } from '../types';
 import { api } from '../services/api';
 
@@ -30,11 +31,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const res = await api.get('/auth/me');
         setUser(res.data.data);
         localStorage.setItem('ff_user', JSON.stringify(res.data.data));
-      } catch {
-        localStorage.removeItem('ff_token');
-        localStorage.removeItem('ff_user');
-        setToken(null);
-        setUser(null);
+      } catch (err: unknown) {
+        // Only wipe credentials if the server explicitly rejected the token as invalid or expired (401)
+        if (axios.isAxiosError(err) && err.response?.status === 401) {
+          localStorage.removeItem('ff_token');
+          localStorage.removeItem('ff_user');
+          setToken(null);
+          setUser(null);
+        }
       } finally {
         setLoading(false);
       }

@@ -1,6 +1,25 @@
 import axios from 'axios';
 
-const API_BASE = import.meta.env.VITE_API_URL || '/api';
+/**
+ * Normalizes the API base URL to ensure:
+ * 1. Defaults to '/api' when not specified (local dev / reverse proxy)
+ * 2. Trailing slashes are stripped
+ * 3. Never produces missing or duplicate '/api' paths regardless of how
+ *    VITE_API_URL is configured (e.g. with or without '/api', with trailing slash).
+ */
+export function normalizeApiBaseUrl(raw?: string): string {
+  const trimmed = (raw || '').trim();
+  if (!trimmed) {
+    return '/api';
+  }
+  const withoutTrailing = trimmed.replace(/\/+$/, '');
+  if (withoutTrailing.endsWith('/api')) {
+    return withoutTrailing;
+  }
+  return `${withoutTrailing}/api`;
+}
+
+export const API_BASE = normalizeApiBaseUrl(import.meta.env.VITE_API_URL);
 
 export const api = axios.create({
   baseURL: API_BASE,
@@ -8,6 +27,10 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
+  // Prevent duplicate '/api' if caller passed a path starting with '/api/'
+  if (config.url && config.url.startsWith('/api/')) {
+    config.url = config.url.slice(4);
+  }
   const token = localStorage.getItem('ff_token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -31,6 +54,9 @@ api.interceptors.response.use(
 
 export function getErrorMessage(err: unknown): string {
   if (axios.isAxiosError(err)) {
+    if (err.code === 'ERR_NETWORK' || !err.response) {
+      return 'Unable to reach backend server. If using Render free tier, the server may take up to 45 seconds to wake up from cold sleep.';
+    }
     return (
       err.response?.data?.error?.message ||
       err.response?.data?.message ||

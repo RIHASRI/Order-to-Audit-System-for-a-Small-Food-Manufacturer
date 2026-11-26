@@ -13,7 +13,9 @@ export const env = {
     (!process.env.MONGO_URI && process.env.NODE_ENV !== 'production'),
   jwtSecret: process.env.JWT_SECRET || 'factoryflow-dev-secret-change-in-production-2026',
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || '12h',
-  corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+  corsOrigin:
+    process.env.CORS_ORIGIN ||
+    'http://localhost:5173,https://order-to-audit-system-for-a-small-food-manufacturer-p6fs4skc2.vercel.app',
   company: {
     name: process.env.COMPANY_NAME || 'FactoryFlow Foods Pvt. Ltd.',
     gstin: process.env.COMPANY_GSTIN || '33AABCF1234D1Z5',

@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Factory, ShieldCheck, ArrowRight, Lock, Mail } from 'lucide-react';
+import { Factory, ShieldCheck, ArrowRight, Lock, Mail, Server } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
-import { api, getErrorMessage } from '../services/api';
+import { api, API_BASE, getErrorMessage } from '../services/api';
 import { Button, Input, Badge } from '../components/ui/Primitives';
 import { ROLE_LABELS } from '../utils/format';
 import { UserRole } from '../types';
@@ -25,11 +25,19 @@ interface DemoAccount {
   role: UserRole;
 }
 
+const DEFAULT_DEMO_ACCOUNTS: DemoAccount[] = [
+  { name: 'Arvind Subramanian', email: 'owner@factoryflow.in', password: 'Password@123', role: 'OWNER' },
+  { name: 'Priya Krishnan', email: 'admin@factoryflow.in', password: 'Password@123', role: 'ADMIN' },
+  { name: 'Karthik Rajan', email: 'sales@factoryflow.in', password: 'Password@123', role: 'SALESMAN' },
+  { name: 'Murugan Selvam', email: 'production@factoryflow.in', password: 'Password@123', role: 'PRODUCTION_SUPERVISOR' },
+  { name: 'Lakshmi Narayanan', email: 'accountant@factoryflow.in', password: 'Password@123', role: 'ACCOUNTANT' },
+];
+
 export const LoginPage: React.FC = () => {
   const { login, user } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
-  const [demoAccounts, setDemoAccounts] = useState<DemoAccount[]>([]);
+  const [demoAccounts, setDemoAccounts] = useState<DemoAccount[]>(DEFAULT_DEMO_ACCOUNTS);
   const [submitting, setSubmitting] = useState(false);
 
   const {
@@ -49,8 +57,14 @@ export const LoginPage: React.FC = () => {
   useEffect(() => {
     api
       .get('/auth/demo-accounts')
-      .then((res) => setDemoAccounts(res.data.data || []))
-      .catch(() => {});
+      .then((res) => {
+        if (Array.isArray(res.data?.data) && res.data.data.length > 0) {
+          setDemoAccounts(res.data.data);
+        }
+      })
+      .catch(() => {
+        // Retain default demo accounts if backend is temporarily unreachable
+      });
   }, []);
 
   const onSubmit = async (data: LoginForm) => {
@@ -194,6 +208,11 @@ export const LoginPage: React.FC = () => {
               </div>
             </div>
           )}
+
+          <div className="flex items-center justify-center gap-1.5 text-[11px] text-slate-400">
+            <Server className="h-3 w-3" />
+            <span>Target API: <code className="text-slate-500 font-mono">{API_BASE}</code></span>
+          </div>
         </div>
       </div>
     </div>
