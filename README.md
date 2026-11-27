@@ -1,5 +1,13 @@
 # FactoryFlow — Smart Food Manufacturing, Inventory, Production & Audit ERP
 
+*Developed by:** Rihasri J S
+
+**GitHub Profile:** [RIHASRI](https://github.com/RIHASRI)
+
+**Personal Portfolio:** [Visit My Portfolio](https://rihasri-portfolio.vercel.app/)
+
+
+
 FactoryFlow is a production-ready **Order-to-Audit ERP** built for small food manufacturers (NIT Tiruchirappalli benchmark scenario), covering Raw & Packaging Procurement, Bill of Materials (BOM) Versioning & Scaling, Production Runs with Variance Alerts (>3%), Weighted-Average Costing, Immutable Stock Ledgers, Mobile-First Field Sales Orders (with IndexedDB offline sync), GST Invoicing (PDF), Dispatch & Partial Fulfillment, Payments & Ageing, and 17 Statutory/Operational Audit Reports (Excel, CSV, PDF).
 
 ---
