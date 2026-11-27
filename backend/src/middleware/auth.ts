@@ -24,6 +24,11 @@ export async function authenticate(
   _res: Response,
   next: NextFunction
 ): Promise<void> {
+  // Always allow CORS preflight OPTIONS requests without requiring authentication
+  if (req.method === 'OPTIONS') {
+    return next();
+  }
+
   try {
     const header = req.headers.authorization;
     const token =

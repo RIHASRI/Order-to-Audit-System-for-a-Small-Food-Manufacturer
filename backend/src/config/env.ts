@@ -15,7 +15,7 @@ export const env = {
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || '12h',
   corsOrigin:
     process.env.CORS_ORIGIN ||
-    'http://localhost:5173,https://order-to-audit-system-for-a-small-food-manufacturer-p6fs4skc2.vercel.app',
+    'http://localhost:5173,https://order-to-audit-system-for-a-small-f.vercel.app,https://order-to-audit-system-for-a-small-food-manufacturer-p6fs4skc2.vercel.app',
   company: {
     name: process.env.COMPANY_NAME || 'FactoryFlow Foods Pvt. Ltd.',
     gstin: process.env.COMPANY_GSTIN || '33AABCF1234D1Z5',

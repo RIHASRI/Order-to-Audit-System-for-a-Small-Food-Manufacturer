@@ -21,6 +21,7 @@ export function createApp() {
     'http://localhost:5173',
     'http://localhost:3000',
     'http://127.0.0.1:5173',
+    'https://order-to-audit-system-for-a-small-f.vercel.app',
     'https://order-to-audit-system-for-a-small-food-manufacturer-p6fs4skc2.vercel.app',
   ];
 
@@ -34,8 +35,12 @@ export function createApp() {
     const normalized = origin.trim().replace(/\/+$/, '');
     if (configuredOrigins.includes(normalized)) return true;
     if (defaultAllowedOrigins.includes(normalized)) return true;
-    // Allow any Vercel preview or branch deployment for this project
-    if (/^https:\/\/order-to-audit-system-for-a-small-food-manufacturer.*\.vercel\.app$/.test(normalized)) {
+    // Allow any Vercel deployment (*.vercel.app)
+    if (/\.vercel\.app$/.test(normalized)) {
+      return true;
+    }
+    // Allow any local development origin (localhost, 127.0.0.1) on any port
+    if (/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(normalized)) {
       return true;
     }
     return false;
