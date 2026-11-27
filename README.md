@@ -151,3 +151,5 @@ cd frontend && npm run test:e2e
 - **Demo Video**: [Watch Project Demonstration](https://drive.google.com/file/d/1vNGGfJ1A4KaQVvqmJKsVjwsJkUx1qIcs/view?usp=sharing)
 
 - **Access FactoryFlow here**: https://order-to-audit-system-for-a-small-f.vercel.app/login
+
+- **NOTE**: "Please try logging in with all five demo accounts and explore the different roles and features of the application."
