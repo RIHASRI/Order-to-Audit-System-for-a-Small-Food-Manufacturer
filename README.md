@@ -142,5 +142,12 @@ cd frontend && npm run test:e2e
 
 ## 8. Deployment
 
-- **Backend (Render)**: Configured via `render.yaml` (`rootDir: backend`, `buildCommand: npm install && npm run build`, `startCommand: npm start`). Set `MONGO_URI` (MongoDB Atlas replica set connection string), `USE_IN_MEMORY_DB=false`, `JWT_SECRET`, and `CORS_ORIGIN`.
-- **Frontend (Vercel)**: Configured via `frontend/vercel.json` with SPA fallback rewrites. Set `VITE_API_URL` to your Render API base URL (`https://<your-api>.onrender.com/api`).
+- **Backend (Render)**: [https://order-to-audit-system-for-a-small-food.onrender.com/](https://order-to-audit-system-for-a-small-food.onrender.com/)  
+  Configured via `render.yaml` (`rootDir: backend`, `buildCommand: npm install && npm run build`, `startCommand: npm start`). Set `MONGO_URI` (MongoDB Atlas replica set connection string), `USE_IN_MEMORY_DB=false`, `JWT_SECRET`, and `CORS_ORIGIN`.
+
+- **Frontend (Vercel)**: [https://order-to-audit-system-for-a-small-food-manufacturer-41acj60rj.vercel.app/login](https://order-to-audit-system-for-a-small-food-manufacturer-41acj60rj.vercel.app/login)  
+  Configured via `frontend/vercel.json` with SPA fallback rewrites. Set `VITE_API_URL` to  Render API base URL
+
+- **Demo Video**: [Watch Project Demonstration](https://drive.google.com/file/d/1vNGGfJ1A4KaQVvqmJKsVjwsJkUx1qIcs/view?usp=sharing)
+
+- **Access FactoryFlow here**: https://order-to-audit-system-for-a-small-food-manufacturer-41acj60rj.vercel.app/login
